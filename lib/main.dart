@@ -28,16 +28,36 @@ class MyApp extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Image.network(url,height: 150,width: 150,),
-                Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.green,
-                      borderRadius: BorderRadius.circular(9),
-                      gradient: LinearGradient(colors: [Colors.red,Colors.blue],begin: Alignment.topCenter,end: Alignment.bottomLeft)
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(9),
+                            // gradient: LinearGradient(colors: [Colors.red,Colors.blue],begin: Alignment.topCenter,end: Alignment.bottomLeft)
+                        ),
+                        child: Icon(
+                          Icons.notification_add_outlined,size: 49,)
                     ),
-                    child: Icon(
-                      Icons.favorite_border,size: 49,)
+                    Positioned(
+                      top: -5,
+                      right: -5,
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                            borderRadius: BorderRadius.circular(30),),
+
+                          child: Text("10",style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight(600)),),
+                      )
+                    )
+                  ]
+
                 ),
                 Text("Hello flutter",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,)),
                 Row(
@@ -49,7 +69,7 @@ class MyApp extends StatelessWidget {
                     Text("Welcome Flutter",style: TextStyle(fontSize: 12,color: Colors.blue,fontWeight: FontWeight(500)),)
                   ],
                 ),
-                Image.asset("assets/images/ddd.jpeg")
+                Expanded(child: Image.asset("assets/images/ddd.jpeg"))
               ],
             )
         ),
