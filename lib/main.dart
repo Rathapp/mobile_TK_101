@@ -1,3 +1,4 @@
+import 'package:fluter_everning_wed/Login.dart';
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomePage(),
+      home: LogIn(),
+      // HomePage(),
     );
   }
 
