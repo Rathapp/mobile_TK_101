@@ -1,18 +1,32 @@
 
+import 'package:fluter_everning_wed/Screen/home_screen.dart';
 import 'package:flutter/material.dart';
-class HomePage  extends StatelessWidget {
 
-  final url ="https://img.freepik.com/free-photo/beautiful-scenery-breathtaking-sunrise-reflecting-sea_181624-16946.jpg?semt=ais_incoming&w=740&q=80";
+import 'Screen/favorite_screen.dart';
+import 'Screen/profile_screen.dart';
+import 'Screen/travel_screen.dart';
+class HomePage  extends StatefulWidget {
+
 
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final url ="https://img.freepik.com/free-photo/beautiful-scenery-breathtaking-sunrise-reflecting-sea_181624-16946.jpg?semt=ais_incoming&w=740&q=80";
+  final List<Widget> _screen = [HomeScreen(),FavoriteScreen(),TravelScreen(),ProfileScreen()];
+ late int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: buildAppBar(),
       drawer: buildDrawer(),
       endDrawer: Drawer(),
-      body: _buildBody(),
+      body: _screen[_currentIndex],
+      // _buildBody(),
       bottomNavigationBar: buildBottomNavigationBar(),
       floatingActionButton: buildFloatingActionButton(),
 
@@ -30,14 +44,22 @@ class HomePage  extends StatelessWidget {
   BottomNavigationBar buildBottomNavigationBar() {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black26,
+        currentIndex: _currentIndex,
+        onTap: (index){
+          setState(() {
+            _currentIndex = index;
+          });
+        },
 
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         items: [
       BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite),label: "Favorite"),
+          BottomNavigationBarItem(icon: _currentIndex == 1 ? Icon(Icons.favorite):Icon(Icons.favorite_outline),label: "Favorite"),
 
-          BottomNavigationBarItem(icon: Icon(Icons.card_travel),label: "Travel"),
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.card_travel_outlined),label: "Travel"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline),label: "Profile"),
     ]
   );
   }
@@ -132,68 +154,9 @@ class HomePage  extends StatelessWidget {
     );
   }
 
-  Widget _buildBody() {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.center,
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      // mainAxisSize: MainAxisSize.max,
-      children: [
-        SizedBox(height: 20,),
-        Text("Hello flutter",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,)),
-        // Image.network(url,height: 350,width: 350,),
-        SizedBox(height: 30,),
-        _buildStack(),
 
-        buildRow(),
-        Spacer(),
-        Image.asset("assets/images/ddd.jpeg")
-      ],
-    );
-  }
 
-  Widget buildRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Icon(Icons.home_filled,size: 50,color: Colors.green,),
-        Text("Welcome Flutter",style: TextStyle(fontSize: 12,color: Colors.blue,fontWeight: FontWeight(500)),)
-      ],
-    );
-  }
 
-  Widget _buildStack() {
-    return Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(9),
-                // gradient: LinearGradient(colors: [Colors.red,Colors.blue],begin: Alignment.topCenter,end: Alignment.bottomLeft)
-              ),
-              child: Icon(
-                Icons.notification_add_outlined,size: 49,)
-          ),
-          Positioned(
-              top: -5,
-              right: -5,
-              child: Container(
-                padding: EdgeInsets.all(5),
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(30),),
 
-                child: Text("10",style: TextStyle(color: Colors.blue,fontSize: 16,fontWeight: FontWeight(600)),),
-              )
-          )
-        ]
 
-    );
-  }
 }
